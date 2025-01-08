@@ -1,0 +1,122 @@
+@use "variable"as v;
+@use "common"as c;
+.d-contents {
+  margin: 150px 0;
+  @include c.mq() {
+    margin: 100px 0;
+  }
+}
+
+.d-news-wapper {
+  padding: 40px 40px 100px;
+  background-color: #FFF;
+  @include c.mq() {
+    padding:20px 10px 100px;
+  }
+}
+.d-news-head {
+  // margin: 80px 0 20px;
+  border-bottom: 1px solid #cecece;
+  padding: 0 10px 30px;
+  .d-news-info {
+    span {
+      font-size: 10px;
+      background-color: #f5f4f4;
+      padding: 8px;
+    }
+  }
+  .d-news-title {
+    margin: 20px 0;
+    h2 {
+      font-size: 35px;
+      margin: 20px 0;
+      line-height: 1.5em;
+      @include c.mq() {
+        font-size: 28px;
+        margin-bottom: 40px;
+      }
+    }
+  }
+  .d-news-time {
+    display: flex;
+    align-items: center;
+    span {
+      font-size: 12px;
+    }
+    ul.category{
+      display: flex;
+      li{
+        font-size: 12px;
+        background-color: #f5f4f4;
+        padding: 8px;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.d-news-contents {
+  line-height: 2rem;
+  margin: 40px 0;
+  img{
+	  margin-bottom: 10px;
+	  @include c.mq() {
+		max-width: 320px;
+		width: 100%;
+	  }
+  }
+  h3 {
+    padding: 10px;
+    margin: 30px 0 10px;
+    background-color: #20b531;
+    font-size: 18px;
+    color: #fff;
+    letter-spacing: 2px;
+  }
+  h4 {
+    font-size: 17px;
+    padding: 0.25em 0.5em;
+    font-weight: bolder;
+    border-left: 5px solid rgb(197, 197, 197);
+    margin: 10px 0;
+  }
+  h5 {
+    border-bottom: 3px solid #2bb83b;
+    display: inline-block;
+    margin: 10px 0;
+  }
+  p {
+    margin-bottom: 10px;
+  }
+  .custom_btn {
+    display: inline-block;
+    padding: 7px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 17px;
+    background-image: linear-gradient(45deg, #ffc107 0%, #ff8b5f 100%);
+    transition: 0.4s;
+  }
+  a{
+    color: #1a0dab;
+    text-decoration: underline;
+    &:hover{
+      text-decoration: none;
+    }
+    &:visited{
+      color:#660099;
+    }
+  }
+}
+.np-btn {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 80px;
+  @include c.mq() {
+    padding: 40px 10px 0;
+  }
+  p {
+    font-size: 12px;
+  }
+}

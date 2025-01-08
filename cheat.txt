@@ -1,0 +1,534 @@
+【ヘッダーで利用】
+<link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" type="text/css" media=“all" />
+<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no”>
+
+【タイトル変更】
+<title><?php wp_title('',true); ?><?php if(wp_title('',false)) { ?> | <?php } ?><?php bloginfo('name'); ?></title>
+
+<link rel="stylesheet" media="screen and (min-width: 641px)" type="text/css" href="<?php bloginfo('template_url'); ?>/style.css">
+<link rel="stylesheet" media="screen and (max-width: 640px)" type="text/css" href="<?php bloginfo('template_url'); ?>/sp.css”>
+
+<?php wp_head(); ?>
+<?php wp_footer(); ?>
+
+【電話番号に自動的にリンクを付けない】
+<meta name="format-detection" content="telephone=no">
+
+【リンクとディレクトリ】
+<?php bloginfo('url'); ?>
+<?php bloginfo('name'); ?>
+<?php bloginfo('template_directory'); ?>/
+
+【テーマ化css】
+/*
+Theme Name: kawase-bento.jp
+Description: かわ瀬-オリジナルテーマ
+Version: 1.0
+*/
+
+【基本タグ】
+現在の記事の投稿時間を表示----------------<?php the_time(); ?>
+現在の記事の投稿日時を表示----------------<?php the_date(); ?>
+現在の記事のタイトルを表示----------------<?php the_title(); ?>
+現在の記事の本文を表示-------------------<?php the_content(); ?>
+現在の記事のパーマリンクURLを表示---------<?php the_permalink(); ?>
+記事のカテゴリーをリンク付きで表示---------<?php the_category(); ?>
+現在の記事の著者名を表示------------------<?php the_author(); ?>
+現在の記事のタグを表示-------------------<?php the_tags(); ?>
+現在の記事の記事IDを表示------------------<?php the_ID(); ?>
+リンク付きページ一覧を表示／取得-----------<?php wp_list_pages(); ?>
+リンク付きカテゴリ一覧を表示／取得---------<?php wp_list_categories(); ?>
+前後のページへのリンクを表示--------------<?php posts_nav_link(); ?>
+記事ページで次の記事へのリンクを表示-------<?php next_post_link(); ?>
+記事ページで前の記事へのリンクを表示-------<?php previous_post_link(); ?>
+検索文字列を表示-------------------<?php the_search_query();?>
+トラックバックURIを表示／取得-------------<?php trackback_url(display); ?>
+タグクラウドを表示-------------------<?php wp_tag_cloud(); ?>
+カレンダーを表示-------------------<?php get_calendar(); ?>
+リンク付きアーカイブリストを表示------------<?php wp_get_archives(); ?>
+
+
+【読み込みタグ】
+<?php get_header(); ?>
+<?php get_sidebar(); ?>
+<?php get_footer(); ?>
+<?php the_content(); ?>
+<?php the_permalink(); ?>
+
+【ファイル名】
+header.php
+index.php
+sidebar.php
+footer.php
+single.php
+single-xxx.php
+page.php
+taxonomy.php
+taxonomy-xxx.php
+comments.php
+search.php
+searchform.php
+archive.php
+functions.php
+404.php
+style.css
+
+【新着情報の読み込み】
+<?php
+  $args = array( ここに条件書く );                //ループの表示条件を書く
+  query_posts( $args );                         //ループの条件をセットする
+?>
+          <?php if ( have_posts() ) : ?>
+          <?php while ( have_posts() ) : the_post(); ?>
+                     <span><?php the_time(__('Y/n/j')) ?></span>
+                     <p><a href="<?php the_permalink(); ?>"><?php the_title();?></a></p>
+           <?php endwhile; ?>
+          <?php else : ?>
+               <p>記事がありませんでした</p>
+          <?php endif; ?>
+          <?php wp_reset_query(); ?>
+            </div><!--oshirase end—>
+
+【新着情報の読み込み】
+//カテゴリースラッグが「product」で表示件数が「20記事」の場合
+<?php query_posts('category_name=product&posts_per_page=20'); ?>
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+    <h1><?php the_title(); ?></h1>
+    <div><?php the_content(); ?></div>
+<?php endwhile; endif; ?>
+
+【タイトル文字数制限】
+<?php echo mb_substr($post->post_title, 0, 20).'……'; ?>
+
+【タイトル文字数制限条件分岐】
+<?php
+if(mb_strlen($post->post_title, 'UTF-8')>20){
+  $title= mb_substr($post->post_title, 0, 20, 'UTF-8');
+  echo $title.'……';
+}else{
+  echo $post->post_title;
+}
+?>
+【getpostsのループ】
+    <?php if (have_posts()): while (have_posts()) : the_post(); ?>
+          <div class="inner">
+            <div class="left">
+              <img src="<?php bloginfo('template_url'); ?>/images/blog-no-image.jpg" alt="">
+              <p><?php $cat = get_the_category(); $cat = $cat[0]; { echo $cat->cat_name; } ?></p>
+            </div><!-- .left -->
+            <div class="right">
+              <p class="day"><?php the_time('Y.m.d'); ?></p>
+              <h4><?php the_title(); ?></h4>
+              <p><?php echo mb_substr(strip_tags($post-> post_content),0,100) . '...'; ?></p>
+              <a href="<?php the_permalink(); ?>">> 続きを読む</a>
+            </div><!-- .right -->
+          </div><!-- .inner -->
+
+    <?php endwhile;endif; ?>
+
+【コンテンツの文字数制限】
+<?php
+if(mb_strlen($post->post_content, 'UTF-8')>200){
+  $content= mb_substr($post->post_content, 0, 200, 'UTF-8');
+  echo $content.'……';
+}else{
+  echo $post->post_content;
+}
+?>
+【コンテンツの文字数制限】
+<?php echo mb_substr(strip_tags($post-> post_content),0,100) . '...'; ?>
+
+【カテゴリのリンクなし表示】
+<?php $cat = get_the_category(); $cat = $cat[0]; { echo $cat->cat_name; } ?>
+
+【カテゴリのスラッグ取得】
+<?php
+// 記事のカテゴリー情報を取得する
+$cat = get_the_category();
+
+// 取得した配列から必要な情報を変数に入れる
+$cat_name = $cat[0]->cat_name; // カテゴリー名
+$cat_slug  = $cat[0]->category_nicename; // カテゴリースラッグ
+?>
+<p class="<?php echo $cat_slug ?>"><?php echo $cat_name; ?></p>
+
+
+【カテゴリ一覧とリンクを取得】
+参考サイト：http://cly7796.net/wp/cms/try-using-get-categories/
+<?php $categories = get_categories(); ?>
+    <div class="side">
+      <h4>カテゴリー<span>CATEGORY</span></h4>
+      <ul>
+<?php foreach($categories as $category) : ?>
+        <li><a href="<?php bloginfo('url'); ?>/<?php echo $category->slug; ?>"><i class="fal fa-angle-double-right fa-pull-right"></i><?php echo $category->name; ?></a></li>
+<?php endforeach; ?>
+
+【タイトルの英語】
+<?php echo get_post_meta($post->ID , 'title_en' ,true); ?>
+
+
+【特定のカテゴリの一覧を表示】
+                  <table>
+                      <?php
+                      $posts = get_posts(array(
+                      'posts_per_page' => 5, // 表示件数
+                      'category' => '1' // カテゴリIDもしくはスラッグ名
+                      ));
+                      ?>
+                      <?php if($posts): foreach($posts as $post): setup_postdata($post); ?>
+                      <!--表示する内容が入ります。-->
+                      <tr><th><?php the_time(__('Y/n/j')) ?></th><td>
+                      <a href="<?php the_permalink(); ?>"><?php the_title();?></a></td></tr>
+                      <!--表示する内容ここまで-->
+                      <?php endforeach; endif; ?>
+                  </table>
+
+
+【任意の部分テンプレート】
+hoge.phpで作成
+
+<?php get_template_part('hoge'); ?>
+で出力
+
+【テンプレートファイル作成】
+<?php
+/**
+ * Template Name: ブログ一覧用
+ */
+
+get_header(); ?>
+
+【基本ループ】
+                    <!-- pタグ自動挿入制限 start-->
+                    <?php remove_filter('the_content', 'wpautop'); ?>
+                    <!-- pタグ自動挿入制限 stop -->
+                    <div class="clear"></div>
+
+                    <?php
+                    if (have_posts()) :
+                     while (have_posts()) :
+                      the_post();
+                      the_content();
+                     endwhile;
+                    endif;
+                    ?>
+
+【基本ループ2】
+<?php query_posts('cat=5&posts_per_page=3'); ?>
+    <?php if (have_posts()): while (have_posts()) : the_post(); ?>
+      <li>
+        <time datetime="<?php the_time('Y-m-d'); ?>"><?php the_time('Y.m.d'); ?></time>
+        <h1><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
+      </li>
+    <?php endwhile;endif; ?>
+
+
+【基本ループ3】
+    <?php if (have_posts()): while (have_posts()) : the_post(); ?>
+      <li>
+        <time datetime="<?php the_time('Y-m-d'); ?>"><?php the_time('Y.m.d'); ?></time>
+        <h1><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
+      </li>
+    <?php endwhile;endif; ?>
+【カスタム投稿ループ】
+<?php
+$temp = $wp_query;
+$wp_query = null;
+$wp_query = new WP_Query();
+$wp_query->query('post_type=bento' . '&paged=' . $paged . '&posts_per_page=24');
+?>
+<?php if (have_posts()):while(have_posts()):the_post(); ?>
+                        <li>
+                            <?php if( get_field('bento_image') ): ?>
+                                <img src="<?php the_field('bento_image'); ?>"/>
+                            <?php endif; ?>
+                                <h4><?php the_title(); ?></h4>
+                            <?php if( get_field('price') ) { ?>
+                                <h5><?php the_field('price'); ?>円(税込み)</h5>
+                            <?php } ?>
+                                <p><a href="<?php the_permalink(); ?>">詳細はこちら</a></p>
+                        </li>
+<?php endwhile; endif; ?>
+                    </ul>
+
+【一週間以内の更新だけ、なにか出す】
+<?php
+$post_time = get_the_time('U');
+$days = 7; //New!を表示させる日数
+$last = time() - ($days * 24 * 60 * 60);
+if ($post_time > $last) {
+echo '<span class="new-txt">NEW!</span>';
+}
+?>
+
+【リピーターフィールド】
+<?php if(get_field('hatsuden_gaiyo')): ?>
+     <table>
+     <?php while(the_repeater_field('hatsuden_gaiyo')): ?>
+     <tr>
+          <th><?php the_sub_field('hatsuden_gaiyo_title'); ?></th>
+          <td><?php the_sub_field('hatsuden_gaiyo_content'); ?></td>
+     </tr>
+     <?php endwhile; ?>
+     </table>
+<?php endif; ?>
+
+【カスタムフィールドテキスト表示】
+<?php if( get_field('text_area') ) { ?><?php the_field('text_area'); ?><?php } ?>
+
+【カスタムフィールドのリピーターフィールドの中の値があるかどうかで条件分岐】
+<?php $customfield = the_sub_field('shopname');//ここで値を取得 ?>
+<?php if( empty($customfield) ): ?>
+カスタムフィールドが空だった場合にここが表示される
+<?php else: ?>
+カスタムフィールドの値が入力されていたらここに表示される
+<?php echo esc_html( $post->postnum ); ?>
+<?php endif; ?>
+
+【リピーターフィールドを使ったときにデフォルトのカスタムフィールドがでないときの対処】
+add_filter('acf/settings/remove_wp_meta_box', '__return_false');
+上記をファンクションphpに追加
+
+【//リピーターフィールドの1つ目を取得】
+<?php
+$rows = get_field('komatsu_photo');
+$first_row = $rows[0];
+$first_row_image = $first_row['photo' ];
+?>
+<img src="<?php echo $first_row_image ?>" >
+//ここまで
+
+
+【カスタム投稿で作成したタクソノミーの取得】
+<?php $terms = get_the_terms( $post->ID, 'syumoku' ); foreach ( $terms as $term ) { echo $term->name; } ?>
+
+【カスタム投稿で作成したタクソノミーの取得2】
+<?php
+$terms = get_terms('products-category');
+foreach ( $terms as $term ) {
+echo  esc_html($term->name); // タームタイトル
+}
+?>
+
+【カスタム投稿で作成したタクソノミーの取得3】
+<?php
+if ($terms = get_the_terms($post->ID, 'referee_cat')) {
+    foreach ( $terms as $term ) {
+        echo '<span>' . esc_html($term->name) . '</span>';
+    }
+}
+?>
+
+【カスタム投稿で作成したタクソノミーの取得リンク付き】
+<?php
+$terms = get_terms('products-category');
+foreach ( $terms as $term ) {
+echo '<a href="'.get_term_link($term).'">'.$term->name.'</a>';
+}
+?>
+
+https://hirashimatakumi.com/blog/1338.html
+
+【アイキャッチある時と無いときの条件分岐】
+    <?php if (has_post_thumbnail()) : ?>
+        <?php the_post_thumbnail('thumbnail'); ?>
+    <?php else : ?>
+        <img src="<?php bloginfo('template_url'); ?>/img/noimage.gif" width="100" height="100" alt="デフォルト画像" />
+    <?php endif ; ?>
+
+
+【条件分岐】
+1-1. 条件がひとつの時
+<?php if ( 条件1 ): ?>
+     // 条件1に該当する場合の処理
+<?php endif; ?>
+
+
+1-2. 条件がひとつの時
+<?php if ( 条件1 ): ?>
+     // 条件1に該当する場合の処理
+<?php else: ?>
+     // 条件1に該当しない場合の処理
+<?php endif; ?>
+
+
+1-3. 条件が複数の時
+<?php if ( 条件1 ): ?>
+     // 条件1に該当する場合の処理
+<?php elseif ( 条件2 ): ?>
+     // 条件1に該当せず 且つ 条件2に該当する場合の処理
+<?php elseif ( 条件3 ): ?>
+     // 条件1・2に該当せず 且つ 条件3に該当する場合の処理
+<?php endif; ?>
+
+
+1-4. 条件が複数の時
+<?php if ( 条件1 ): ?>
+     // 条件1に該当する場合の処理
+<?php elseif ( 条件2 ): ?>
+     // 条件1に該当せず 且つ 条件2に該当する場合の処理
+<?php else: ?>
+     // どちらにも該当しない場合の処理
+<?php endif; ?>
+
+1-5.特定の親ページの子ページかどうかを判断して出力
+    <?php if ( is_page() && $post->post_parent == 42 ): ?>
+        //親ページが42の子ページに出力されます
+    <?php endif; ?>
+
+トップだけの条件分岐
+<?php if ( is_home() || is_front_page() ) : ?>
+ここにトップページにだけ表示したいHTMLを記載
+<?php endif; ?>
+
+
+【条件分岐タグ】
+* メインページかどうか判断する
+    * is_home()
+* シングルページかどうか判断する
+    * if(is_single()):
+* 固定ページかどうか判断する
+    * if(is_page()):
+* 
+
+<?php if(is_category('news')) : ?>
+// カテゴリースラッグ"news"の記事一覧が表示されているときの処理を書く
+<?php enfif; ?>
+
+<?php if(in_category('news')) : ?>
+// カテゴリースラッグ"news" のカテゴリーに属した記事のときの処理を書く
+<?php endif; ?>
+
+
+【投稿やカスタム投稿を混在させて出力】
+<ul class="new_post">
+    <?php
+        //投稿タイプを混ぜて取得
+         global $post;
+         $my_posts= get_posts(array(
+         'post_type' => array('post','page','投稿タイプ名'),       //投稿タイプを配列に複数可
+         'numberposts' => 9
+         ));
+         foreach($my_posts as $post):setup_postdata($post);
+    ?>
+        <li>
+            <a href="<?php the_permalink() ?>">
+                <p class="post_img"><?php the_post_thumbnail(''); ?></p>
+                <p class="title"><?php the_title(); ?></p>
+                <p class="excerpt"><?php the_excerpt();?></p>
+            </a>
+        </li>
+    <?php endforeach; ?>
+</ul>
+
+カスタム投稿のグループ
+<?php
+// vars
+$group_name = get_field('ba');
+if( $group_name ): ?>
+    <img src="<?php echo $group_name['image_b']; ?>" />
+    <img src="<?php echo $group_name['image_a']; ?>" />
+      <?php echo $group_name['ba_text']; ?>
+<?php endif; ?>
+
+
+【/ カスタム投稿｜function.php】
+function create_post_type() {
+  register_post_type('products',// カスタム投稿スラッグ
+    array(
+      'label' => '商品',// カスタム投稿名
+      'description' => '',
+      'public' => true,
+      'show_ui' => true,
+      'show_in_menu' => true,
+      'menu_position' => 5,
+      'capability_type' => 'post',
+      'hierarchical' => false,
+      'rewrite' => true,
+      'query_var' => false,
+      'has_archive' => true,
+      'exclude_from_search' => false,
+      'supports' => array(
+        'title',
+        'editor',
+        'revisions',
+        'page-attributes',
+        'comments'
+      ),
+      
+    )
+  );
+  register_taxonomy(
+    'products_cat',
+    'products',
+    array(
+      'label' => '商品タグ',
+      'labels' => array(
+        'edit_item' => '商品タグを編集',
+        'add_new_item' => '新規商品タグを追加',
+        'search_items' => ' 商品タグを検索'
+      ),
+      'public' => true,
+      'hierarchical' => true,
+      'rewrite' => array('slug' => 'products')
+    ));
+
+
+【プラグイン】
+Advanced Custom Fields
+Advanced Custom Fields: Font Awesome
+All In One SEO Pack
+Contact Form 7
+Custom Post Type UI
+Custom Post Type Permalinks｜カスタム投稿のURLを調整
+WP-PageNavi
+Breadcrumb NavXT
+AddQuicktag
+WP Theme Test
+wp-taxonomy-import カスタムタクソノミーのインポートに
+
+
+
+
+
+// カスタム投稿
+add_action( 'init', 'create_post_type' );
+function create_post_type() {
+  register_post_type('referee',// 投稿タイプ名の定義
+    array(
+      'name' => '審判',//表示名
+      'label' => '審判',//表示名
+      'description' => '',//説明
+      'public' => true,// 投稿タイプをパブリックにするか否か
+      'show_ui' => true,
+      'show_in_menu' => true,
+      'capability_type' => 'post',
+      'hierarchical' => false,//固定ページのように親ページを指定するならtrue
+      'rewrite' => true,
+      'query_var' => false,// スラッグでURLをリクエストできる
+      'has_archive' => true,// アーカイブを有効にするか否か
+      'exclude_from_search' => false,// サイト内検索から除外する
+      'menu_position' => 27,// 管理画面上でどこに配置するか
+      'supports' => array(
+        'title',
+        'editor',
+        'revisions',
+        'page-attributes',
+        'comments'
+      ),
+    )
+  );
+  register_taxonomy(
+    'referee_cat',// 新規カスタムタクソノミー名
+    'referee',// 新規カスタムタクソノミーを反映させる投稿タイプの定義名
+    array(
+      'label' => '対応地域',// 表示するカスタムタクソノミー名
+      'hierarchical' => true,//固定ページのように親ページを指定するならtrue
+      'show_ui' => true,
+      'query_var' => true,// スラッグでURLをリクエストできる
+      'rewrite' => array('slug' => 'referee'),// カスタムタクソノミースラッグ名
+      'singular_label' => '対応地域'
+    )
+  );
+}

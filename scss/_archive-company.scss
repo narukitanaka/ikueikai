@@ -1,0 +1,284 @@
+@use "variable"as v;
+@use "common"as c;
+.p-archive-company {
+  a, span {
+    font-family: "Hiragino Kaku Gothic ProN";
+    font-weight: 400;
+  }
+  .tab {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    margin-top: 50px;
+    li {
+      width: calc((100% / 3) - (15px / 3));
+      @include c.mq() {
+        width: 200px ;
+        min-width: 200px;
+      }
+      a {
+        width: 100%;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        text-align: center;
+        letter-spacing: 1px;
+        margin: 0;
+        transition: all .3s;
+        @include c.mq() {
+          width: 200px ;
+          font-size: 14px;
+          letter-spacing: 0;
+        }
+        &:hover {
+          background-color: #22ac38;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+.cate-list {
+  margin-bottom: 60px;
+  .total {
+    font-size: 16px;
+    padding: 20px 0;
+    letter-spacing: 1px;
+    span {
+      margin-left: 10px;
+    }
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 10px;
+    margin-bottom: 10px;
+    @include c.mq() {
+      column-gap: 10px;
+    }
+    li {
+      width: calc((100% / 2) - 10px);
+      height: 40px;
+      background-color: #eee;
+      transition: all .3s;
+      box-shadow: 0 0 4px rgba($color: #000000, $alpha: .3);
+      @include c.mq() {
+        width: 100%;
+      }
+      &:hover {
+        background-color: #22ac38;
+        a {
+          color: #fff;
+        }
+      }
+      a {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        transition: all .3s;
+        @include c.mq() {
+          font-size: 14px;
+        }
+      }
+    }
+    .active {
+      background-color: #22ac38;
+      a {
+        color: #fff;
+      }
+    }
+  }
+  .cate-50on {
+    li {
+      width: calc((100% / 5) - (80px / 5));
+      @include c.mq() {
+        width: calc((100% / 2) - (10px / 2));
+      }
+    }
+  }
+  .cate-area {
+    li {
+      width: calc((100% / 4) - (60px / 4));
+      margin-bottom: .5rem;
+      @include c.mq() {
+        width: calc((100% / 2) - (10px / 2));
+      }
+    }
+  }
+  .tiiki-name {
+    margin-bottom: .5rem;
+  }
+}
+.company-list {
+  background-color: #eee;
+  padding: 40px 20px;
+  margin-bottom: 40px;
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 25px;
+    row-gap: 25px;
+    li {
+      width: calc((100% / 3) - (50px / 3));
+      background-color: #fff;
+      // padding: 15px 10px 40px;
+      padding: 30px 10px 40px;
+      box-shadow: 0 0 4px rgba($color: #000000, $alpha: .3);
+      @include c.mq() {
+        width: 100%;
+      }
+      .box {
+        .img-box {
+          width: 100%;
+          aspect-ratio: 2.5/1;
+          margin-bottom: 20px;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+          }
+        }
+        p,div {
+          font-size: 14px;
+          line-height: 1.5;
+        }
+        .name {
+          font-weight: 600;
+          letter-spacing: 1px;
+          text-decoration: underline;
+          // margin-bottom: 30px;
+          transition: all .3s;
+          font-size: 16px;
+          margin-bottom: 20px;
+        }
+      }
+      a {
+        &:hover {
+          .name {
+            color: #22ac38;
+          }
+        }
+      }
+    }
+  }
+}
+.all-list {
+  margin-top: -40px;
+}
+
+.custom-serch_wrapper {
+  position: relative;
+  width: 70%;
+  margin-top: 40px;
+  @include c.mq() {
+    width: 100%;
+  }
+  input[type="text"] {
+    width: 100%;
+    border: 2px solid #22ac38;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-right: 10px;
+    &::placeholder {
+      color: #ccc;
+    }
+    @include c.mq() {
+      width: 100%;
+    }
+  }
+  input[type="image"] {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    width: 50px;
+    height: 100%;
+    padding: 10px 15px;
+    background-color: #22ac38;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+}
+
+.result-count {
+  margin: 40px 0 20px;
+}
+
+// 支援企業詳細
+.post-company-details {
+  padding: 40px 0;
+  .txt {
+    margin-bottom: 40px;
+    @include c.mq() {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+  .company-name {
+    margin-bottom: 40px;
+    .logo {
+      width: 500px;
+      aspect-ratio: 3/1;
+      margin-bottom: 30px;
+      @include c.mq() {
+        max-width: 300px;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: left;
+      }
+    }
+    .name {
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: #22ac38;
+      text-decoration: underline;
+      margin-bottom: 20px;
+      @include c.mq() {
+        font-size: 20px;
+      }
+    }
+  }
+  .ttl {
+    margin-bottom: 20px;
+    @include c.mq() {
+      margin-bottom: 15px;
+    }
+  }
+  .text-area {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #333;
+    line-height: 2;
+    margin-bottom: 40px;
+    @include c.mq() {
+      padding: 15px 10px;
+    }
+  }
+  .btn {
+    width: 350px;
+    aspect-ratio: 5/1;
+    border: 1.5px solid #22ac38;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #22ac38;
+    letter-spacing: 1px;
+    margin: 0 auto;
+    transition: all .3s;
+    @include c.mq() {
+      width: 100%;
+    }
+    &:hover {
+      color: #fff;
+      background-color: #22ac38;
+    }
+  }
+}

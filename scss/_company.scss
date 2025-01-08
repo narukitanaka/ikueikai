@@ -1,0 +1,76 @@
+@use "variable"as v;
+@use "common"as c;
+.contents {
+  @include c.mq() {
+    box-sizing: border-box;
+  }
+  .company-table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 60px 0 100px;
+    @include c.mq() {
+      display: block;
+      padding: 0 10px;
+      box-sizing: border-box;
+      width: 100%;
+
+    }
+    .sp-br {
+      display: none;
+      @include c.mq() {
+        display: block;
+      }
+    }
+  }
+ 
+  .company-table th {
+    width: 26%;
+    border-bottom: 1px solid #ccc;
+    line-height: 1.5rem;
+
+    padding: 20px;
+
+    font-family: v.$default-font-family;
+    font-weight: v.$default-font-weight-b;
+    font-style: v.$default-font-style;
+    @include c.mq() {
+      width: 100%;
+      display: block;
+      background: #1880cf;
+      color: #fff;
+      padding: 15px;
+      border: transparent;
+
+    }
+  }
+  .company-table td {
+    width: 70%;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+    line-height: 1.5rem;
+    max-width: 550px;
+    font-family: v.$default-font-family;
+    font-weight: v.$default-font-weight-r;
+    font-style: v.$default-font-style;
+    @include c.mq() {
+      width: 100%;
+      max-width: 100%;
+      display: block;
+
+      border: transparent;
+    }
+  }
+  .company-table tbody {
+    @include c.mq() {
+      width: 100%;
+	  display: block;
+    }
+  }
+  .company-table tbody tr{
+    @include c.mq() {
+      width: 100%;
+	  display: block;
+    }
+  }
+}

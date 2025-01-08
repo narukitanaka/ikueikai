@@ -1,0 +1,285 @@
+@use "variable"as v;
+@use "common"as c;
+.an5-faderight {
+  animation-name: faderight;
+  animation-duration: 1.3s;
+
+  animation-iteration-count: 1;
+}
+@keyframes faderight {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.an6-faderight {
+  animation-name: faderightfast;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+}
+@keyframes faderightfast {
+  0% {
+    opacity: 0;
+    transform: translateX(-150px);
+  }
+  25% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.mv {
+  @include c.mq() {
+    //  height: 595px;
+    img {
+      height: 100%;
+    }
+  }
+}
+.an4-fadeleft {
+  animation-name: fadeLeft;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+}
+@keyframes fadeLeft {
+  0% {
+    // opacity: 0;
+    transform: translateX(150px);
+  }
+  50% {
+    // opacity: 0.5;
+  }
+  100% {
+    // opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.global_menu {
+  width: 100%;
+  position: relative;
+  text-align: center;
+}
+
+.child_menu {
+  width: 1140px;
+  position: absolute;
+  left: 0;
+  min-height: 200px;
+  visibility: hidden; /* 下層メニューを非表示 */
+
+  display: flex;
+  .d-title {
+    background-image: url(../images/top/mv/back-top.png);
+    background-position: 20% 40%;
+    flex-basis: 25%;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    padding-top: 40px;
+
+    line-height: normal;
+  }
+  .d-list {
+    background-color: #fff;
+    flex-basis: 75%;
+    display: flex;
+
+    .main-list {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 50px;
+      text-align: left;
+
+      li {
+        flex-basis: auto;
+        flex-basis: 50%;
+        min-width: 300px;
+
+        // margin-right: 60px;
+        line-height: normal;
+        margin-bottom: 15px;
+        position: relative;
+        &:before {
+          content: "";
+          position: absolute;
+          left: -15px;
+          top: 12px;
+          width: 8px;
+          height: 8px;
+          border: 2px solid;
+          border-color: #a7a7a7 #a7a7a7 transparent transparent;
+          transform: rotate(45deg);
+        }
+      }
+    }
+    .menu{
+      display: flex;
+      flex-wrap: wrap;
+      padding: 50px;
+      text-align: left;
+
+      li {
+        flex-basis: auto;
+        flex-basis: 50%;
+        min-width: 300px;
+
+        // margin-right: 60px;
+        line-height: normal;
+        margin-bottom: 15px;
+        position: relative;
+        &:before {
+          content: "";
+          position: absolute;
+          left: -15px;
+          top: 12px;
+          width: 8px;
+          height: 8px;
+          border: 2px solid;
+          border-color: #a7a7a7 #a7a7a7 transparent transparent;
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+}
+
+.menu:hover .child_menu {
+  visibility: visible;
+  animation-duration: 0.5s;
+  animation-name: fade-in;
+}
+
+@keyframes fade-in {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  50% {
+    visibility: visible;
+    opacity: 0.5;
+  }
+
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+// .search_text {
+//   width: 100%;
+//   position: absolute;
+//   left: 0;
+//   min-height: 200px;
+//   visibility: hidden; /* 下層メニューを非表示 */
+
+//   display: flex;
+
+// }
+
+.search{
+  @include c.mq() {
+    display: none;
+  }
+}
+
+.search_wrapper {
+  position: relative;
+  cursor: pointer;
+  .non_visible_block {
+    position: absolute;
+    width: 100px;
+    right: -40px;
+    opacity: 0;
+    cursor: pointer;
+    height: 100px;
+    z-index: 9999;
+  }
+}
+.search_text {
+  cursor: pointer;
+}
+.search_blocks {
+  width: 1140px;
+  position: absolute;
+  left: 0;
+  top: 80px;
+  height: 80px;
+  display: none;
+}
+.sp_search_blocks {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  height: 120px;
+  // z-index: 100;
+  display: none;
+}
+
+
+
+.search_bar {
+  display: flex;
+  width: 100%;
+  background-color: rgb(138, 138, 138);
+  border: 1px solid rgb(230, 230, 230);
+  opacity: 0.9;
+  color: #fff;
+  text-align: left;
+  padding-left: 60px;
+}
+.sp_search_bar {
+  display: flex;
+  width: 100%;
+  background-color: rgb(138, 138, 138);
+  border: 1px solid rgb(230, 230, 230);
+  opacity: 0.9;
+  color: #fff;
+  text-align: left;
+  padding-left: 30px;
+}
+
+.search_icon {
+  height: 15px;
+  width: 15px;
+  padding: 5px 5px;
+  transform: translate(-15px, 26px);
+}
+.sp_search_icon {
+  height: 15px;
+  width: 15px;
+  padding: 5px 5px;
+  transform: translate(-15px, 17px);
+}
+
+#text2 {
+  font-size: 16px;
+  width: 100%; /*flexの中で100%広げる*/
+  color: #fff;
+}
+#text3 {
+  font-size: 16px;
+  width: 100%; /*flexの中で100%広げる*/
+  height: 60px;
+  color: #fff;
+}
+
+input::placeholder {
+  color: #fff;
+}

@@ -1,0 +1,170 @@
+@use "variable"as v;
+@use "common"as c;
+
+///////////////////////////
+// アンケートフォーム
+/////////////////////////////////////
+
+.wrapper_anketo {
+  .text{
+    line-height: 2em;
+    margin-bottom: 50px;
+  }
+  h3{
+    background-color: #E9F8EA;
+    margin: 9px 0px;
+    padding: 15px;
+    font-weight: bolder;
+    @include c.mq(){
+      line-height: 1.5em;
+    }
+  }
+  h4 {
+    font-weight: bolder;
+    border-bottom: 1.5px solid #000000;
+    padding: 19px;
+    margin-bottom: 30px;
+    @include c.mq(){
+      line-height: 1.5em;
+    }
+  }
+}
+
+.visual_editor_contents p {
+  padding: 0px;
+}
+
+
+
+.anket_content {
+  width: 713px;
+  margin-left: 21px;
+  ul{
+    margin-left: 33px;
+    @include c.mq(){
+      margin-left: 23px;
+    }
+  }
+  li{
+    margin-bottom: 10px;
+  }
+  .textarea{
+    margin-top: 5px;
+  }
+  @include c.mq(){
+    width: 100%;
+    margin-left: initial;
+  }
+  section{
+    margin-bottom: 60px;
+    @include c.mq(){
+      margin-bottom: 30px;
+    }
+  }
+  .anket_send_title{
+  display: block;
+  text-align: center;
+  line-height: 2em;
+  }
+  .anket_send_btn{
+  display: block;
+  position: relative;
+  background: #22AC37;
+  padding: 1.2rem;
+  border-radius: 0.2rem;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: .1rem;
+  transition: .5s;
+  width: 100%;
+  margin: 28px 0px 28px;
+  }
+  .anket_send_btn:before {
+    content: "";
+    position: absolute;
+    top: 46%;
+    right: 32px;
+    width: 10px;
+    height: 2px;
+    background: #fff;
+    transform: rotate(45deg);
+  }
+  .anket_send_btn:after {
+    content: "";
+    position: absolute;
+    top: 57%;
+    right: 32px;
+    width: 10px;
+    height: 2px;
+    background: #fff;
+    transform: rotate(-45deg);
+  }
+}
+
+.textarea {
+  border: 1px solid #9A9A9A;
+  border-radius: 5px;
+  height: 100px;
+  width: 100%;
+}
+
+.visual_editor_contents ul {
+  padding: 0px 0px 0px 35px;
+}
+
+.anket_choices {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.anket_annotation{
+  color: red;
+  border: 1px solid;
+  padding: 6px;
+  margin: 10px 0px 0px 13px;
+}
+
+// コンタクトフォーム７
+
+span.wpcf7-list-item{
+  display: block;
+  margin: 14px 0px;
+}
+
+/* 送信ローダーの位置調整 */
+.wpcf7 .wpcf7-spinner {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+}
+.wpcf7-submit-block {
+  position: relative;
+  margin-bottom: 2em; /* 要調整(*1) */
+}
+
+.wpcf7-submit-block input[type='submit'] {
+  min-width: 200px;
+}
+
+/* 送信ローダークリック時 */
+.wpcf7-submit.wpcf7-active {
+  pointer-events: none;
+  opacity: .5;
+}
+
+
+
+// 送信完了しましたページ
+.anketo_return_btn {
+  color: #1a0dab;
+  text-decoration: underline;
+}
+
+
+
+
+

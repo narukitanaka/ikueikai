@@ -1,0 +1,29 @@
+@use "variable" as v;
+@use "common" as c;
+
+.p-archive-scholarship {
+  padding-bottom: 10rem;
+  .main_under_title {
+    margin-bottom: 3rem;
+  }
+  form {
+    margin-bottom: 6rem;
+    .step-txt {
+      display: flex;
+      dd {
+        margin-left: 5px;
+      }
+    }
+    .check-cate {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .custom-serch_wrapper {
+      margin-top: 0;
+    }
+    input[type="image"] {
+      height: 99%;
+    }
+  }
+}

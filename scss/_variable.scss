@@ -1,0 +1,22 @@
+/*************************************************
+Adobe fonts
+*************************************************/
+
+$default-font-family: kozuka-gothic-pr6n, sans-serif;
+$default-font-weight-l: 300;
+$default-font-weight-r: 400;
+$default-font-weight-m: 500;
+$default-font-weight-b: 700;
+$default-font-weight-h: 900;
+$default-font-style: normal;
+$noto-font-family: Noto Serif Myanmar, sans-serif;
+
+
+a,
+span {
+  font-family: $default-font-family;
+  font-weight: $default-font-weight-l;
+  font-style: $default-font-style;
+}
+
+

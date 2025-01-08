@@ -1,0 +1,137 @@
+@use "variable"as v;
+@use "common"as c;
+.contents {
+  .lead-text {
+    margin: 80px 0;
+    line-height: 2rem;
+    @include c.mq() {
+      padding: 0 10px;
+      box-sizing: border-box;
+      margin: 30px 0;
+      font-size: 0.8rem;
+      line-height: 1.5rem;
+    }
+    p {
+      font-family: v.$default-font-family;
+      font-weight: v.$default-font-weight-r;
+      font-style: v.$default-font-style;
+    }
+  }
+  @include c.mq() {
+    box-sizing: border-box;
+  }
+  .contact-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 60px 0 100px;
+
+    @include c.mq() {
+      display: block;
+      padding: 0 10px;
+      box-sizing: border-box;
+      width: 100%;
+      margin: 60px 0;
+    }
+   
+    input[type="text"] {
+      font-size: 16px;
+      width: 100%; /*flexの中で100%広げる*/
+      background-color: #f2f2f2;
+      border: none; /*枠線非表示*/
+      outline: none; /*フォーカス時の枠線非表示*/
+      box-sizing: border-box; /*横幅の解釈をpadding, borderまでとする*/
+      padding: 10px;
+      transition: 0.4s;
+
+      &:focus {
+        transition: 0.4s;
+        background-color: rgb(206, 240, 255);
+      }
+    }
+    textarea {
+      background-color: #f2f2f2;
+      width: 100%;
+      padding: 10px;
+      transition: 0.4s;
+
+      &:focus {
+        transition: 0.4s;
+        background-color: rgb(206, 240, 255);
+      }
+    }
+  }
+
+  .contact-table th {
+    width: 26%;
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+    font-family: v.$default-font-family;
+    font-weight: v.$default-font-weight-b;
+    font-style: v.$default-font-style;
+    letter-spacing: 1px;
+    @include c.mq() {
+      width: 100%;
+      display: block;
+      background: #1880cf;
+      color: #fff;
+      padding: 15px 10px;
+      border: transparent;
+    }
+  }
+  .contact-table tr:nth-child(5) {
+    th {
+      vertical-align: top;
+    }
+  }
+  .contact-table td {
+    width: 70%;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+    line-height: 1.5rem;
+    // max-width: 95%;
+    font-family: v.$default-font-family;
+    font-weight: v.$default-font-weight-r;
+    font-style: v.$default-font-style;
+    @include c.mq() {
+      width: 100%;
+      max-width: 100%;
+      display: block;
+      padding: 20px 5px;
+      border: transparent;
+    }
+  }
+  .contact-table tbody {
+    @include c.mq() {
+      width: 100%;
+      display: block;
+    }
+  }
+  .contact-table tbody tr {
+    @include c.mq() {
+      width: 100%;
+      display: block;
+    }
+  }
+
+  .submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 120px;
+    input[type="submit"] {
+      width: 60%;
+      text-align: center;
+      letter-spacing: 1px;
+      display: block;
+      padding: 16px 30px;
+      background-color: #025a9c;
+      border-radius: 20vh;
+      color: rgb(255, 255, 255);
+      font-weight: v.$default-font-weight-m;
+      @include c.mq() {
+        width: 80%;
+      }
+    }
+  }
+}
