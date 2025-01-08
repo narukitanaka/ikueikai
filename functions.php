@@ -230,6 +230,68 @@ function create_scholarship_post_type() {
 }
 add_action('init', 'create_scholarship_post_type');
 
+function enqueue_scholarship_scripts() {
+    if (is_post_type_archive('scholarship')) {
+        wp_enqueue_script('scholarship-scripts', get_template_directory_uri() . '/js/scholarship-scripts.js', array(), '1.0', true);
+    }
+}
+add_action('wp_enqueue_scripts', 'enqueue_scholarship_scripts');
+
+function add_scholarship_query_vars($vars) {
+    $vars[] = 'scholarship_category';
+    $vars[] = 'scholarship_keyword';
+    return $vars;
+}
+add_filter('query_vars', 'add_scholarship_query_vars');
+
+// タイトル検索とメタ検索を組み合わせる
+function custom_scholarship_search($where, $query) {
+    global $wpdb;
+    
+    $search_term = $query->get('_meta_or_title');
+    $category = get_query_var('scholarship_category');  // カテゴリーの取得
+
+    if ($search_term && $query->get('post_type') === 'scholarship') {
+        $search = '%' . $wpdb->esc_like($search_term) . '%';
+        
+        // カテゴリーの条件を構築
+        $category_condition = '';
+        if ($category) {
+            $term_relationships = $wpdb->term_relationships;
+            $term_taxonomy = $wpdb->term_taxonomy;
+            $category_condition = $wpdb->prepare(
+                "AND {$wpdb->posts}.ID IN (
+                    SELECT object_id 
+                    FROM {$term_relationships} 
+                    INNER JOIN {$term_taxonomy} ON {$term_relationships}.term_taxonomy_id = {$term_taxonomy}.term_taxonomy_id 
+                    WHERE {$term_taxonomy}.term_id = %d
+                )",
+                $category
+            );
+        }
+
+        $where = $wpdb->prepare(
+            "AND (
+                ({$wpdb->posts}.post_type = 'scholarship' AND {$wpdb->posts}.post_title LIKE %s)
+                OR 
+                ({$wpdb->posts}.ID IN (
+                    SELECT post_id FROM {$wpdb->postmeta} 
+                    WHERE (meta_key = 'school_name02' AND meta_value LIKE %s)
+                    OR (meta_key = 'school_name03' AND meta_value LIKE %s)
+                ))
+            ) {$category_condition}",  // カテゴリー条件を追加
+            $search,
+            $search,
+            $search
+        );
+    }
+    
+    return $where;
+}
+add_filter('posts_where', 'custom_scholarship_search', 10, 2);
+
+
+// 管理画面内でカテゴリーの絞り込みをできるように設定
 function my_custom_column($columns) {
   $columns['scholarship-cat'] = 'カテゴリ';
   return $columns;
@@ -270,17 +332,3 @@ function my_add_filter(){
     }
 }
 add_action('restrict_manage_posts', 'my_add_filter');
-
-function enqueue_scholarship_scripts() {
-    if (is_post_type_archive('scholarship')) {
-        wp_enqueue_script('scholarship-scripts', get_template_directory_uri() . '/js/scholarship-scripts.js', array(), '1.0', true);
-    }
-}
-add_action('wp_enqueue_scripts', 'enqueue_scholarship_scripts');
-
-function add_scholarship_query_vars($vars) {
-    $vars[] = 'scholarship_category';
-    $vars[] = 'scholarship_keyword';
-    return $vars;
-}
-add_filter('query_vars', 'add_scholarship_query_vars');

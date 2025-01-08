@@ -56,51 +56,64 @@
         // 検索パラメータの取得
         $category = get_query_var('scholarship_category');
         $keyword = get_query_var('scholarship_keyword');
+
         // 検索が実行された場合のみクエリを実行
         if ($category || $keyword) {
           $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+          
           $args = array(
-          'post_type' => 'scholarship',
-          'posts_per_page' => 20,
-          'paged' => $paged,
+            'post_type' => 'scholarship',
+            'posts_per_page' => 20,
+            'paged' => $paged,
+            'orderby' => 'title',
+            'order' => 'ASC'
           );
-          // カテゴリーの絞り込み
-          if ($category) {
-            $args['tax_query'] = array(
-              array(
-              'taxonomy' => 'scholarship-cat',
-              'field' => 'term_id',
-              'terms' => $category,
-              ),
-            );
-          }
+
           // キーワード検索
           if ($keyword) {
-            $args['s'] = $keyword;
+              $args['_meta_or_title'] = $keyword;
+              $args['post_type'] = 'scholarship';
+              
+              // メタクエリの設定
+              $args['meta_query'] = array(
+                  'relation' => 'OR',
+                  array(
+                      'key' => 'school_name02',
+                      'value' => $keyword,
+                      'compare' => 'LIKE'
+                  ),
+                  array(
+                      'key' => 'school_name03',
+                      'value' => $keyword,
+                      'compare' => 'LIKE'
+                  )
+              );
           }
-          $query = new WP_Query($args);
-          if ($query->have_posts()) : ?>
-          <div>
-            <?php while ($query->have_posts()) : $query->the_post(); ?>
-            <article>
-              <h2>
-              <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-              </h2>
-              <?php the_excerpt(); ?>
-            </article>
-            <?php endwhile; ?>
-          </div>
 
-          <!-- ページネーション -->
-          <?php
-          echo paginate_links(array(
-            'total' => $query->max_num_pages,
-            'current' => $paged,
-          ));
-          ?>
+          $query = new WP_Query($args);
+
+          if ($query->have_posts()) : ?>
+            <div>
+              <?php while ($query->have_posts()) : $query->the_post(); ?>
+                <article>
+                  <h2>
+                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                  </h2>
+                  <?php the_excerpt(); ?>
+                </article>
+              <?php endwhile; ?>
+            </div>
+
+            <!-- ページネーション -->
+            <?php
+            echo paginate_links(array(
+              'total' => $query->max_num_pages,
+              'current' => $paged,
+            ));
+            ?>
 
           <?php else : ?>
-          <p>検索条件に一致する奨学資金は見つかりませんでした。</p>
+            <p>検索条件に一致する奨学資金は見つかりませんでした。</p>
           <?php
           endif;
           wp_reset_postdata();
